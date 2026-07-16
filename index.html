@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aditya Pandey - Research Analyst & Data Professional Portfolio">
+<title>Aditya Pandey :: Portfolio :: Welcome :)</title>
+<style>
+/* ================================================================
+   QUICK-EDIT TOKEN MAP
+   Search for [EDIT: TAG] in this file to jump to each edit zone.
+
+   [EDIT: NAME]           Your name (nav + hero)
+   [EDIT: NAV-PHOTO]      Circular photo in nav bar
+   [EDIT: HERO-PHOTO]     Main profile photo / clipart in hero
+   [EDIT: HERO-TEXT]      Tagline, description, stat numbers
+   [EDIT: ABOUT-TEXT]     About paragraphs
+   [EDIT: CONTACT-INFO]   Email, phone, LinkedIn in About
+   [EDIT: SKILLS]         Four skill cells
+   [EDIT: JOB-1..4]       Experience cards (duplicate for more)
+   [EDIT: PROJECT-1..4]   Project cards + clipart zones
+   [EDIT: ADD-PROJECT]    Template to copy for a 5th/6th project
+   [EDIT: CV-DETAILS]     Education, stack, experience bullets
+   [EDIT: CV-FILE]        Path to your CV PDF file
+   [EDIT: SOCIAL-LINKS]   GitHub, LinkedIn, email
+   [EDIT: FORM-KEY]       Web3Forms access key
+   [EDIT: ICON-*]         Every icon slot (nav, cards, taskbar)
+   [EDIT: TICKER]         Scrolling ticker text at top
+
+   ICON SLOTS -- pattern used everywhere:
+     <span class="ico" aria-hidden="true">
+       <!-- [ICON] 20x20 img: <img src="icons/FILE.png" alt="" width="20" height="20"> -->
+     </span>
+   Leave empty = invisible. Add img = shows icon.
+
+   CLIPART / IMAGE ZONES -- pattern in project cards:
+     <div class="clipart-zone">
+       <!-- [CLIPART] Replace comment with your img tag -->
+     </div>
+   While empty: shows a dashed placeholder box.
+   To add image: put <img src="..."> inside the div.
+================================================================ */
+
+/* ----------------------------------------------------------------
+   1. DESIGN TOKENS
+   Change these to retheme the whole site at once.
+---------------------------------------------------------------- */
+:root {
+  /* XP Luna blues */
+  --blue:       #1968b7;
+  --blue-dk:    #0a246a;
+  --blue-hi:    #2b7fd4;
+  --blue-hov:   #316ac5;
+  /* Surfaces */
+  --desk:       #236a86;   /* desktop background teal */
+  --bg:         #ece9d8;   /* window body warm grey   */
+  --silver:     #d4d0c8;
+  --mid:        #aca899;
+  --white:      #ffffff;
+  /* 3D raised border shorthand (top/right/bottom/left) */
+  --raised:     #ffffff #716f64 #716f64 #ffffff;
+  --sunken:     #716f64 #ffffff #ffffff #716f64;
+  /* Titlebar gradient (reused on nav + every window) */
+  --title-grad:
+    linear-gradient(180deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,.10) 45%, rgba(0,0,0,.05) 100%),
+    linear-gradient(90deg, #0a246a 0%, #1968b7 28%, #2b7fd4 55%, #1968b7 78%, #0a246a 100%);
+  /* Button gradients */
+  --btn-def:    linear-gradient(180deg, #f5f4f0 0%, #e0ddd6 50%, #cdc9c0 100%);
+  --btn-pri:    linear-gradient(180deg, #5aa0e8 0%, #1f6dc2 50%, #0b50a0 100%);
+  --btn-hov:    linear-gradient(180deg, #eef4ff 0%, #ccdaf8 50%, #b8ccf0 100%);
+  --btn-act:    linear-gradient(180deg, #b8ccf0 0%, #ccdaf8 50%, #eef4ff 100%);
+  --gloss:      linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.12) 100%);
+  /* Fonts */
+  --ui:         Tahoma, Verdana, 'MS Sans Serif', sans-serif;
+  --display:    'Comic Sans MS', 'Chalkboard SE', cursive;
+  --mono:       'Courier New', 'Lucida Console', monospace;
+  /* Layout */
+  --nav-h:      52px;
+  --bar-h:      40px;
+}
+
+/* ----------------------------------------------------------------
+   2. RESET + BASE
+---------------------------------------------------------------- */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ui);
+  font-size: 13px;
+  line-height: 1.5;
+  color: #111;
+  background-color: var(--desk);
+  background-image:
+    radial-gradient(ellipse at 50% 110%, rgba(80,160,40,.28) 0%, transparent 52%),
+    linear-gradient(180deg, #3d8dc4 0%, var(--desk) 40%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: var(--bar-h);
+}
+
+/* ----------------------------------------------------------------
+   3. XP SCROLLBAR
+---------------------------------------------------------------- */
+::-webkit-scrollbar       { width: 16px; }
+::-webkit-scrollbar-track { background: var(--silver); border-left: 1px solid #716f64; }
+::-webkit-scrollbar-thumb {
+  background: var(--silver);
+  border: 2px solid;
+  border-color: var(--raised);
+}
+::-webkit-scrollbar-button {
+  background: var(--silver);
+  border: 2px solid;
+  border-color: var(--raised);
+  height: 16px;
+}
+
+/* ----------------------------------------------------------------
+   4. ICON SLOT  (.ico)
+   Empty by default (comments don't render = zero width).
+   Appears as soon as you put an <img> inside it.
+---------------------------------------------------------------- */
+.ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ico img { display: block; object-fit: contain; }
+
+/* ----------------------------------------------------------------
+   5. XP WINDOW CHROME
+   Every window: .xp-window > .xp-titlebar + optional bars + .xp-body
+   Parts you can use:
+     .xp-menubar   -- File / Edit / View strip
+     .xp-toolbar   -- Icon button strip
+     .xp-addrbar   -- Address bar
+     .xp-statusbar -- Status strip at bottom
+---------------------------------------------------------------- */
+
+/* -- Window container -- */
+.xp-window {
+  border-radius: 6px 6px 0 0;
+  border: 2px solid;
+  border-color: #aad0f5 #0a1a4a #0a1a4a #aad0f5;
+  box-shadow: 0 6px 28px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.35),
+              inset 0 0 0 1px rgba(170,208,245,.2);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+/* -- Titlebar (blue gradient + gloss) -- */
+.xp-titlebar {
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30px;
+  user-select: none;
+  background: var(--title-grad);
+}
+.xp-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.6);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* -- Window control buttons (min / max / close) -- */
+.win-btns { display: flex; gap: 2px; flex-shrink: 0; }
+.win-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.55);
+  font-family: var(--ui);
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  text-shadow: 0 1px 1px rgba(0,0,0,.4);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: filter .1s, transform .05s;
+}
+.win-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: var(--gloss);
+  pointer-events: none;
+}
+.win-btn:hover  { filter: brightness(1.18); }
+.win-btn:active { filter: brightness(.82); transform: translateY(1px); }
+.win-btn:focus-visible { outline: 1px dotted #fff; outline-offset: 1px; }
+.win-btn-min, .win-btn-max {
+  background: linear-gradient(180deg, #5ab1ea 0%, #2278c6 55%, #0d5ea8 100%);
+}
+.win-btn-close {
+  background: linear-gradient(180deg, #ef6040 0%, #c82a08 55%, #a01000 100%);
+  margin-left: 2px;
+}
+
+/* -- Optional: menu bar -- */
+.xp-menubar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--silver);
+  padding: 2px 4px;
+  display: flex;
+  gap: 0;
+}
+.menu-item {
+  padding: 3px 8px;
+  font-size: 12px;
+  font-family: var(--ui);
+  cursor: default;
+  border: 1px solid transparent;
+  color: #000;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.menu-item:hover { background: var(--blue); color: #fff; }
+.menu-item:focus-visible { outline: 1px dotted #000; }
+
+/* -- Optional: toolbar -- */
+.xp-toolbar {
+  background: var(--silver);
+  border-bottom: 1px solid var(--mid);
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.toolbar-sep {
+  width: 1px; height: 22px;
+  background: linear-gradient(180deg, transparent, #716f64, transparent);
+  margin: 0 3px;
+}
+/* Toolbar icon button */
+.xp-tbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  font-family: var(--ui);
+  font-size: 11px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #000;
+  text-decoration: none;
+  border-radius: 1px;
+  transition: background .1s, border-color .1s;
+  white-space: nowrap;
+}
+.xp-tbtn:hover    { background: rgba(49,106,197,.15); border-color: var(--blue-hov); }
+.xp-tbtn:active   { background: rgba(49,106,197,.30); border-color: var(--blue-dk); }
+.xp-tbtn:focus-visible { outline: 1px dotted #000; }
+.xp-tbtn[disabled], .xp-tbtn:disabled {
+  color: var(--mid); cursor: default; pointer-events: none;
+}
+
+/* -- Optional: address bar -- */
+.xp-addrbar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--silver);
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.addr-label { color: #444; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+.addr-field {
+  flex: 1;
+  padding: 2px 6px;
+  background: #fff;
+  border: 2px solid;
+  border-color: var(--sunken);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #000;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.addr-go.xp-tbtn { border: 1px solid; border-color: var(--raised); background: var(--btn-def); }
+.addr-go.xp-tbtn:hover { background: var(--btn-hov); border-color: var(--blue-hov); }
+
+/* -- Window body -- */
+.xp-body { padding: 16px; background: var(--white); }
+.xp-body.silver { background: var(--bg); }
+.xp-body.flush  { padding: 0; }
+
+/* -- Optional: status bar -- */
+.xp-statusbar {
+  background: var(--silver);
+  border-top: 1px solid var(--mid);
+  padding: 3px 8px;
+  font-size: 11px;
+  font-family: var(--ui);
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ----------------------------------------------------------------
+   6. XP BUTTON SYSTEM
+   Classes: .xp-btn  .xp-btn.primary  .xp-btn.sm
+   Every variant: hover / active / focus / disabled
+---------------------------------------------------------------- */
+.xp-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 18px;
+  min-width: 84px;
+  min-height: 26px;
+  font-family: var(--ui);
+  font-size: 12px;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--btn-def);
+  border: 2px solid;
+  border-color: var(--raised);
+  box-shadow: 1px 1px 0 rgba(0,0,0,.18);
+  white-space: nowrap;
+  transition: background .08s, border-color .08s, transform .05s, box-shadow .05s;
+}
+/* Gloss overlay */
+.xp-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: var(--gloss);
+  pointer-events: none;
+}
+.xp-btn:hover {
+  background: var(--btn-hov);
+  border-color: var(--blue-hov) #0040a0 #0040a0 var(--blue-hov);
+  box-shadow: 1px 1px 0 rgba(0,0,0,.15);
+}
+.xp-btn:active {
+  background: var(--btn-act);
+  border-color: #0040a0 var(--blue-hov) var(--blue-hov) #0040a0;
+  box-shadow: none;
+  transform: translateY(1px);
+}
+.xp-btn:focus-visible { outline: 1px dotted #000; outline-offset: -4px; }
+.xp-btn:disabled, .xp-btn[disabled] {
+  color: var(--mid); cursor: default; pointer-events: none;
+  background: linear-gradient(180deg, #f0eeea, #e4e2dc);
+  box-shadow: none;
+}
+/* Primary (blue) variant */
+.xp-btn.primary {
+  background: var(--btn-pri);
+  border-color: #90c8ff #04368a #04368a #90c8ff;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+.xp-btn.primary:hover {
+  background: linear-gradient(180deg, #70b0f8 0%, #2f7dd4 50%, #1b60b0 100%);
+  border-color: #a0d8ff #0a46aa #0a46aa #a0d8ff;
+  color: #fff;
+}
+.xp-btn.primary:active {
+  background: linear-gradient(180deg, #0b50a0 0%, #1f6dc2 50%, #5aa0e8 100%);
+  border-color: #04368a #90c8ff #90c8ff #04368a;
+  color: #fff;
+}
+/* Small variant */
+.xp-btn.sm { padding: 3px 10px; min-width: 60px; min-height: 22px; font-size: 11px; }
+/* Full-width variant */
+.xp-btn.full { width: 100%; }
+
+/* ----------------------------------------------------------------
+   7. TICKER TAPE
+   [EDIT: TICKER] Change the text inside .ticker-inner
+---------------------------------------------------------------- */
+.ticker-wrap {
+  background: linear-gradient(180deg, #00007f, #00006a);
+  color: #ffff00;
+  padding: 4px 0;
+  overflow: hidden;
+  border-bottom: 2px solid #f0c000;
+  font-family: var(--mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  padding-right: 80px;
+  animation: scrollTicker 50s linear infinite;
+}
+
+/* ----------------------------------------------------------------
+   8. TOP NAVIGATION
+---------------------------------------------------------------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: var(--title-grad);
+  border-bottom: 3px solid var(--blue-dk);
+  box-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 8px;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: background .12s, border-color .12s;
+}
+.nav-logo:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4); }
+.nav-logo:focus-visible { outline: 1px dotted #fff; }
+/* [EDIT: NAV-PHOTO] */
+.nav-photo {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.7);
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+  background: var(--silver);
+}
+/* [EDIT: NAME] */
+.nav-name {
+  color: #fff;
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.6);
+  white-space: nowrap;
+}
+.nav-sep {
+  width: 1px; height: 30px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.5), transparent);
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 5px 9px;
+  text-decoration: none;
+  color: #fff;
+  font-family: var(--ui);
+  font-size: 11px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background .1s, border-color .1s;
+  background: none;
+}
+.nav-btn:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.45); }
+.nav-btn:active { background: rgba(0,0,0,.18); border-color: rgba(255,255,255,.2); }
+.nav-btn:focus-visible { outline: 1px dotted #fff; outline-offset: 1px; }
+
+/* ----------------------------------------------------------------
+   9. HERO SECTION
+---------------------------------------------------------------- */
+#home {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--nav-h) + 36px) 20px 80px;
+  position: relative;
+  overflow: hidden;
+}
+#star-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.hero-win {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 860px;
+  border: 2px solid;
+  border-color: #aad0f5 #0a1a4a #0a1a4a #aad0f5;
+  border-radius: 6px 6px 2px 2px;
+  box-shadow: 0 10px 48px rgba(0,0,0,.65), 0 2px 6px rgba(0,0,0,.4),
+              inset 0 0 0 1px rgba(170,208,245,.15);
+  overflow: hidden;
+}
+.hero-body {
+  background: var(--bg);
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+/* Left column */
+.hero-left { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+/* -- [EDIT: HERO-PHOTO] -- */
+.hero-photo-frame {
+  width: 152px; height: 152px;
+  border: 3px solid;
+  border-color: var(--sunken);
+  background: var(--silver);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+.hero-photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Clipart zone inside hero photo frame */
+.clipart-zone {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #7080a0;
+  text-align: center;
+  border: 2px dashed #a0b0c8;
+  background: linear-gradient(135deg, #c8d8f0, #b4c4e0);
+}
+.clipart-zone img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.cz-label { font-size: 10px; color: #607090; margin-top: 4px; }
+/* Stats below photo */
+.hero-stats { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+.stat-box {
+  background: #fff;
+  border: 2px solid;
+  border-color: var(--sunken);
+  padding: 5px 8px;
+  text-align: center;
+}
+.stat-n { font-family: var(--display); font-size: 22px; font-weight: bold; color: var(--blue); line-height: 1; }
+.stat-l { font-size: 10px; color: #555; text-transform: uppercase; }
+/* Right column */
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--blue);
+  margin-bottom: 10px;
+  letter-spacing: .05em;
+  animation: fadeUp .7s ease .2s both;
+}
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(48px, 9vw, 84px);
+  font-weight: bold;
+  line-height: .95;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg,
+    #ff0066 0%, #ff4400 12%, #ffcc00 25%,
+    #00bb00 38%, #0088ff 52%, #8800ff 65%,
+    #ff00aa 78%, #ff0066 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeUp .7s ease .4s both;
+}
+.hero-desc {
+  font-size: 13px; color: #333; max-width: 430px;
+  margin-bottom: 20px; line-height: 1.7;
+  animation: fadeUp .7s ease .6s both;
+}
+.hero-cta {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  animation: fadeUp .7s ease .8s both;
+}
+
+/* ----------------------------------------------------------------
+   10. DESKTOP AREA (sections wrapper)
+---------------------------------------------------------------- */
+.desktop { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
+.sec-label {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+  color: #d0e8ff; margin-bottom: 4px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.7);
+}
+.sec-title {
+  font-family: var(--display);
+  font-size: clamp(28px, 5vw, 44px); font-weight: bold;
+  color: #fff; margin-bottom: 16px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,.7);
+}
+.star-div {
+  text-align: center; color: #ffe0a0; font-size: 16px;
+  letter-spacing: 14px; padding: 8px 0;
+  text-shadow: 0 0 8px rgba(255,220,100,.6);
+}
+/* MS Paint swatch strip */
+.paint-strip {
+  display: flex;
+  height: 14px;
+  border: 2px solid;
+  border-color: var(--raised);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.ps { flex: 1; }
+
+/* ----------------------------------------------------------------
+   11. ABOUT SECTION
+---------------------------------------------------------------- */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.about-text p { font-size: 13px; color: #333; line-height: 1.8; margin-bottom: 12px; }
+.about-text strong { color: var(--blue-dk); }
+/* XP group box (fieldset look) */
+.xp-group {
+  border: 1px solid var(--mid);
+  padding: 16px 12px 10px;
+  position: relative;
+  background: #f5f4f0;
+  margin-top: 14px;
+}
+.xp-group-title {
+  position: absolute; top: -9px; left: 10px;
+  background: #f5f4f0; padding: 0 4px;
+  font-family: var(--ui); font-size: 11px; font-weight: bold; color: var(--blue-dk);
+}
+.crow { display: flex; gap: 8px; font-size: 12px; margin-bottom: 5px; align-items: baseline; }
+.crow .lbl { color: #666; min-width: 66px; font-size: 10px; text-transform: uppercase; flex-shrink: 0; }
+.crow a { color: #0000ee; text-decoration: underline; }
+.crow a:hover { color: #cc0066; }
+/* Skills grid */
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.skill-cell {
+  background: #fff;
+  border: 2px solid; border-color: var(--sunken);
+  padding: 11px; transition: background .1s;
+}
+.skill-cell:hover { background: #eef4ff; }
+.skill-cell h3 {
+  font-family: var(--ui); font-size: 11px; text-transform: uppercase;
+  color: var(--blue-dk); font-weight: bold; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 4px;
+}
+.skill-cell p { font-size: 11px; color: #333; line-height: 1.5; }
+
+/* ----------------------------------------------------------------
+   12. EXPERIENCE SECTION
+---------------------------------------------------------------- */
+.explorer-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 380px;
+}
+.exp-sidebar {
+  background: linear-gradient(180deg, #2d5fa3 0%, #1a4a8a 100%);
+  border-right: 2px solid var(--blue-dk);
+}
+.sidebar-sec { padding: 14px 12px; border-bottom: 1px solid rgba(255,255,255,.15); }
+.sidebar-ttl {
+  font-family: var(--ui); font-size: 11px; font-weight: bold;
+  color: #ffff88; margin-bottom: 7px; text-transform: uppercase; letter-spacing: .04em;
+}
+.sidebar-txt { font-size: 12px; color: rgba(255,255,255,.85); line-height: 1.7; }
+.exp-counter {
+  background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.18);
+  padding: 10px; margin-top: 10px;
+}
+.exp-counter .num { font-family: var(--display); font-size: 30px; font-weight: bold; color: #ffff88; line-height: 1; }
+.exp-counter .lbl { font-size: 10px; color: rgba(255,255,255,.7); text-transform: uppercase; }
+.exp-main { background: #fff; padding: 12px; overflow: auto; }
+/* Timeline item */
+.tl-item {
+  display: flex; gap: 8px; margin-bottom: 12px;
+  opacity: 0; transform: translateX(-10px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+/* Folder icon slot */
+.tl-ico {
+  width: 32px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 6px; gap: 4px;
+}
+.tl-ico img { width: 28px; height: 28px; object-fit: contain; }
+/* Fallback text icon when no image */
+.tl-ico-fb {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, #ffe080, #e0a000);
+  border: 1px solid #a07000;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 10px; font-weight: bold; color: #5a3a00;
+}
+.tl-card {
+  flex: 1; border: 1px solid #c0c0c0; background: #f8f8f8;
+  padding: 10px 12px; cursor: pointer;
+  transition: background .1s, border-color .1s;
+}
+.tl-card:hover  { background: #dce8ff; border-color: var(--blue-hov); }
+.tl-card.open   { background: #d0e0ff; border-color: var(--blue); border-left: 3px solid var(--blue); }
+.tl-card:focus  { outline: 1px dotted #000; }
+.tl-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 10px; margin-bottom: 8px;
+}
+.tl-role  { font-family: var(--ui); font-size: 13px; font-weight: bold; color: var(--blue-dk); margin-bottom: 2px; }
+.tl-co    { font-size: 11px; color: #555; }
+.tl-meta  { text-align: right; flex-shrink: 0; }
+.tl-period { font-family: var(--mono); font-size: 11px; color: #555; display: block; margin-bottom: 3px; }
+.tl-dur   { display: inline-block; font-size: 10px; color: #fff; background: var(--blue); padding: 2px 7px; }
+.tl-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
+.tl-badge  { font-size: 10px; color: var(--blue-dk); background: #d0d8f0; border: 1px solid #a0b0d8; padding: 2px 7px; }
+.tl-toggle {
+  font-size: 11px; color: #0000ee; text-decoration: underline;
+  cursor: pointer; background: none; border: none; padding: 0; text-align: left; font-family: var(--ui);
+}
+.tl-toggle:focus-visible { outline: 1px dotted #000; }
+.tl-bullets { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.tl-bullets.open { max-height: 500px; }
+.tl-bullets ul { list-style: none; padding: 10px 0 0; border-top: 1px dashed #c0c0c0; margin-top: 8px; }
+.tl-bullets li {
+  font-size: 12px; color: #333; line-height: 1.7;
+  padding: 2px 0 2px 18px; position: relative;
+}
+.tl-bullets li::before {
+  content: '>>'; position: absolute; left: 0;
+  color: var(--blue); font-family: var(--mono); font-size: 9px; top: 5px;
+}
+
+/* ----------------------------------------------------------------
+   13. PROJECTS SECTION
+---------------------------------------------------------------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.project-card {
+  border: 2px solid; border-color: var(--raised);
+  background: var(--bg); display: flex; flex-direction: column;
+  overflow: hidden; transition: background .1s, border-color .1s;
+}
+.project-card:hover {
+  background: #eef4ff;
+  border-color: var(--blue-hov) #0040a0 #0040a0 var(--blue-hov);
+}
+/* Titlebar on project cards */
+.card-title-bar {
+  padding: 3px 6px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--title-grad);
+  user-select: none;
+}
+.card-title-text { color: #fff; font-size: 11px; font-weight: bold; font-family: var(--ui); text-shadow: 1px 1px 1px rgba(0,0,0,.5); }
+.card-btns { display: flex; gap: 1px; }
+.card-btn {
+  width: 16px; height: 16px; border-radius: 2px;
+  border: 1px solid rgba(0,0,0,.4); font-size: 9px; font-family: var(--ui);
+  font-weight: bold; color: #fff; display: inline-flex; align-items: center; justify-content: center;
+  cursor: default; position: relative; overflow: hidden;
+}
+.card-btn::before { content:''; position:absolute; top:0;left:0;right:0; height:50%; background:var(--gloss); pointer-events:none; }
+.card-btn-min, .card-btn-max { background: linear-gradient(180deg, #5ab1ea, #0d5ea8); }
+.card-btn-cls { background: linear-gradient(180deg, #ef6040, #a01000); }
+/* Project image / clipart area */
+.proj-img-area {
+  height: 148px;
+  background: #c8d8f0;
+  border-bottom: 1px solid var(--silver);
+  overflow: hidden;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.proj-img-area img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.project-card:hover .proj-img-area img { transform: scale(1.04); }
+/* Clipart zone inside project image area */
+.proj-img-area .clipart-zone {
+  width: 100%; height: 100%;
+  border: none;
+}
+.project-body { padding: 10px 12px; flex: 1; display: flex; flex-direction: column; }
+.proj-tag  { font-family: var(--mono); font-size: 10px; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+.proj-ttl  { font-family: var(--ui); font-size: 13px; font-weight: bold; color: var(--blue-dk); margin-bottom: 6px; text-decoration: none; cursor: default; }
+a.proj-ttl { cursor: pointer; }
+a.proj-ttl:hover { color: #cc0066; text-decoration: underline; }
+.proj-desc { font-size: 12px; color: #444; line-height: 1.6; flex: 1; }
+.proj-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 11px; color: #0000ee; text-decoration: underline; }
+.proj-link:hover { color: #cc0066; }
+
+/* ----------------------------------------------------------------
+   14. CV SECTION
+---------------------------------------------------------------- */
+.cv-dialog { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 24px; background: var(--bg); }
+.cv-text p { font-size: 13px; color: #333; line-height: 1.7; margin-bottom: 16px; }
+.cv-feats { display: flex; flex-direction: column; gap: 8px; }
+.cv-feat {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px; background: #fff;
+  border: 2px solid; border-color: var(--sunken);
+}
+.cv-feat-ico { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.cv-feat-ico img { width: 28px; height: 28px; object-fit: contain; }
+/* Fallback shape when no icon */
+.cv-feat-ico-fb {
+  width: 28px; height: 28px;
+  border: 2px solid var(--mid);
+  background: var(--silver);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 9px; color: #555;
+}
+.cv-feat h4 { font-family: var(--ui); font-size: 12px; font-weight: bold; color: var(--blue-dk); margin-bottom: 3px; }
+.cv-feat p  { font-size: 12px; color: #444; margin: 0; line-height: 1.4; }
+.cv-btns { display: flex; flex-direction: column; gap: 8px; }
+
+/* ----------------------------------------------------------------
+   15. CONTACT SECTION
+---------------------------------------------------------------- */
+.msn-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.msn-left {
+  background: linear-gradient(180deg, #cfe4ff, #e4f0ff);
+  border-right: 2px solid; border-color: var(--sunken);
+  padding: 20px;
+}
+.msn-left p { font-size: 13px; color: #333; line-height: 1.8; margin-bottom: 16px; }
+.social-links { display: flex; flex-direction: column; gap: 6px; }
+.social-link {
+  display: flex; align-items: center; gap: 0;
+  padding: 7px 10px; background: #fff;
+  border: 2px solid; border-color: var(--raised);
+  color: var(--blue-dk); text-decoration: none; font-size: 12px;
+  transition: background .1s, border-color .1s;
+}
+.social-link:hover { background: #dce8ff; border-color: var(--blue-hov) #0040a0 #0040a0 var(--blue-hov); }
+.social-link:focus-visible { outline: 1px dotted #000; }
+.social-link-ico { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-right: 7px; }
+.social-link-ico img { width: 18px; height: 18px; object-fit: contain; }
+.sl-text { flex: 1; }
+.sl-arr  { font-family: var(--mono); font-size: 11px; color: #0000ee; }
+.msn-right { padding: 20px; background: var(--white); }
+.form-group { margin-bottom: 10px; }
+.form-label { display: block; font-family: var(--ui); font-size: 11px; text-transform: uppercase; color: #555; margin-bottom: 3px; }
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%; padding: 4px 6px;
+  background: #fff; border: 2px solid; border-color: var(--sunken);
+  font-family: var(--ui); font-size: 12px; color: #000; outline: none;
+  transition: border-color .1s;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  border-color: var(--blue-hov) #90b8ff #90b8ff var(--blue-hov);
+  background: #f0f6ff;
+}
+textarea { resize: vertical; min-height: 90px; }
+.success-msg {
+  display: none; padding: 8px; font-size: 12px;
+  background: #d4edda; border: 1px solid #5aaa5a; color: #1a6a1a;
+  margin-bottom: 8px; font-family: var(--ui);
+}
+
+/* ----------------------------------------------------------------
+   16. XP TASKBAR  (fixed bottom bar)
+---------------------------------------------------------------- */
+.xp-taskbar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: var(--bar-h); z-index: 1000;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.20) 0%, rgba(255,255,255,.05) 30%, rgba(0,0,0,.08) 100%),
+    linear-gradient(90deg, #1a5fab 0%, #2878d6 40%, #1a5fab 100%);
+  border-top: 2px solid var(--blue-dk);
+  box-shadow: 0 -2px 6px rgba(0,0,0,.4);
+  display: flex; align-items: center; padding: 0 6px; gap: 5px;
+}
+/* Start button */
+.xp-start {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 12px 4px 8px;
+  border-radius: 12px 10px 10px 12px;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255,255,255,.45) 0%, transparent 65%),
+    linear-gradient(180deg, #5ec85e 0%, #3aa03a 45%, #1e7a1e 100%);
+  border: 1px solid rgba(0,80,0,.6);
+  box-shadow: 0 0 0 2px rgba(80,200,80,.22), inset 0 1px 0 rgba(255,255,255,.4);
+  cursor: pointer; text-decoration: none;
+  font-family: var(--ui); font-size: 13px; font-weight: bold;
+  color: #fff; text-shadow: 1px 1px 1px rgba(0,80,0,.7);
+  white-space: nowrap; flex-shrink: 0;
+  transition: filter .1s;
+}
+.xp-start:hover  { filter: brightness(1.1); }
+.xp-start:active { filter: brightness(.88); }
+.xp-start:focus-visible { outline: 1px dotted #fff; outline-offset: 2px; }
+.start-ico { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+.start-ico img { width: 22px; height: 22px; object-fit: contain; }
+/* XP four-color logo fallback */
+.start-xp {
+  display: grid; grid-template-columns: 1fr 1fr;
+  width: 18px; height: 18px; gap: 1px;
+}
+.start-xp span:nth-child(1) { background: #ff3a3a; border-radius: 2px 0 0 0; }
+.start-xp span:nth-child(2) { background: #3af03a; border-radius: 0 2px 0 0; }
+.start-xp span:nth-child(3) { background: #3a3aff; border-radius: 0 0 0 2px; }
+.start-xp span:nth-child(4) { background: #f0c000; border-radius: 0 0 2px 0; }
+.taskbar-sep { width: 1px; height: 28px; background: rgba(255,255,255,.25); flex-shrink: 0; }
+/* Taskbar chips (section shortcuts) */
+.taskbar-chips { display: flex; gap: 4px; flex: 1; overflow: hidden; }
+.chip {
+  display: flex; align-items: center; gap: 5px;
+  padding: 3px 10px;
+  background: linear-gradient(180deg, #4488cc 0%, #2060a8 100%);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 2px; color: #fff;
+  font-family: var(--ui); font-size: 11px; font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  text-decoration: none; transition: background .1s;
+}
+.chip:hover { background: linear-gradient(180deg, #5599dd 0%, #3070b8 100%); }
+.chip:active { background: linear-gradient(180deg, #2060a8 0%, #4488cc 100%); }
+.chip:focus-visible { outline: 1px dotted #fff; }
+.chip-ico { width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; }
+.chip-ico img { width: 14px; height: 14px; object-fit: contain; }
+/* System tray */
+.sys-tray {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  background: rgba(0,0,0,.2); border: 1px solid rgba(255,255,255,.1);
+  padding: 3px 10px;
+  font-family: var(--ui); font-size: 12px; color: #fff;
+}
+
+/* ----------------------------------------------------------------
+   17. ANIMATIONS + KEYFRAMES
+---------------------------------------------------------------- */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+@keyframes scrollTicker { from { transform:translateX(100vw); } to { transform:translateX(-100%); } }
+@keyframes shake    { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+.reveal { opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.win-shake { animation: shake .35s ease; }
+/* Minimized window: hide body */
+.win-minimized > .xp-body,
+.win-minimized > .explorer-layout,
+.win-minimized > .cv-dialog,
+.win-minimized > .msn-grid,
+.win-minimized > .xp-menubar,
+.win-minimized > .xp-toolbar,
+.win-minimized > .xp-addrbar,
+.win-minimized > .xp-statusbar { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+
+/* ----------------------------------------------------------------
+   18. RESPONSIVE
+---------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .hero-body      { grid-template-columns: 1fr; }
+  .hero-left      { flex-direction: row; align-items: flex-start; flex-wrap: wrap; }
+  .about-grid     { grid-template-columns: 1fr; }
+  .explorer-layout { grid-template-columns: 1fr; }
+  .exp-sidebar    { border-right: none; border-bottom: 2px solid var(--blue-dk); }
+  .msn-grid       { grid-template-columns: 1fr; }
+  .cv-dialog      { grid-template-columns: 1fr; }
+  .nav-name       { display: none; }
+  .taskbar-chips  { display: none; }
+}
+@media (max-width: 600px) {
+  .skills-grid    { grid-template-columns: 1fr; }
+  .project-grid   { grid-template-columns: 1fr; }
+  .hero-body      { padding: 14px; }
+  .hero-left      { flex-direction: column; }
+  .nav-inner      { gap: 1px; padding: 0 6px; }
+  .nav-btn        { padding: 4px 6px; font-size: 10px; }
+  .about-grid     { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     [EDIT: TICKER]
+     Change the text between the ** and :: markers below.
+     Each segment is separated by &nbsp;&nbsp;&nbsp;
+================================================================ -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-inner">
+    &nbsp;&nbsp;&nbsp;
+    *** WELCOME TO ADITYA PANDEY'S CYBERSPACE PORTFOLIO ***
+    &nbsp;&nbsp;&nbsp;
+    ~*~ AI DATA SPECIALIST :: RESEARCH ANALYST :: KATHMANDU, NEPAL ~*~
+    &nbsp;&nbsp;&nbsp;
+    !!! RASHIFAL BOT IS LIVE ON X !!!
+    &nbsp;&nbsp;&nbsp;
+    >>> 20+ MONTHS OF PROFESSIONAL EXPERIENCE <<<
+    &nbsp;&nbsp;&nbsp;
+    ** THIS SITE HAS NO VIRUSES. PROBABLY. **
+    &nbsp;&nbsp;&nbsp;
+    ~*~ BEST VIEWED IN INTERNET EXPLORER 6.0 AT 1024x768 ~*~
+    &nbsp;&nbsp;&nbsp;
+    >>> CURRENTLY OPEN TO NEW OPPORTUNITIES <<<
+    &nbsp;&nbsp;&nbsp;
+    ** SIGN MY GUESTBOOK BELOW **
+    &nbsp;&nbsp;&nbsp;
+  </div>
+</div>
+
+
+<!-- ================================================================
+     NAVIGATION BAR
+     [EDIT: NAV-PHOTO]   Replace src="photos/Aditya-Pandey.jpeg"
+     [EDIT: NAME]        Replace "Aditya Pandey" in .nav-name span
+     [EDIT: ICON-NAV]    Put a 20x20 img inside each .ico span
+================================================================ -->
+<header>
+  <nav class="nav-inner" role="navigation" aria-label="Main navigation">
+
+    <!-- Logo / name area -->
+    <a href="#home" class="nav-logo" aria-label="Go to top">
+      <!-- [EDIT: NAV-PHOTO] Change src to your photo path. Recommended: 40x40 square -->
+      <img
+        src="photos/Aditya-Pandey.jpeg"
+        alt="Aditya Pandey"
+        class="nav-photo"
+        onerror="this.style.opacity='0'"
+      >
+      <!-- [EDIT: NAME] -->
+      <span class="nav-name">Aditya Pandey</span>
+    </a>
+
+    <div class="nav-sep" aria-hidden="true"></div>
+
+    <a href="#about" class="nav-btn">
+      <span class="ico">
+        <!-- [EDIT: ICON-NAV-ABOUT] e.g. <img src="icons/about.png" alt="" width="20" height="20"> -->
+      </span>
+      About
+    </a>
+
+    <a href="#experience" class="nav-btn">
+      <span class="ico">
+        <!-- [EDIT: ICON-NAV-EXP] -->
+      </span>
+      Experience
+    </a>
+
+    <a href="#projects" class="nav-btn">
+      <span class="ico">
+        <!-- [EDIT: ICON-NAV-PROJECTS] -->
+      </span>
+      Projects
+    </a>
+
+    <a href="#cv" class="nav-btn">
+      <span class="ico">
+        <!-- [EDIT: ICON-NAV-CV] -->
+      </span>
+      CV
+    </a>
+
+    <a href="#contact" class="nav-btn">
+      <span class="ico">
+        <!-- [EDIT: ICON-NAV-CONTACT] -->
+      </span>
+      Contact
+    </a>
+
+  </nav>
+</header>
+
+
+<!-- ================================================================
+     HERO SECTION
+     [EDIT: HERO-PHOTO]  Add your photo or clipart inside .hero-photo-frame
+     [EDIT: HERO-TEXT]   Change eyebrow, name, description, stat numbers
+================================================================ -->
+<section id="home">
+  <canvas id="star-canvas" aria-hidden="true"></canvas>
+
+  <div class="hero-win" id="hero-window">
+    <!-- Hero window titlebar -->
+    <div class="xp-titlebar">
+      <div class="xp-titlebar-left">
+        <span class="ico">
+          <!-- [EDIT: ICON-HERO-TITLE] 16x16 icon next to window title -->
+        </span>
+        Welcome to Aditya Pandey's Portfolio -- Internet Explorer
+      </div>
+      <div class="win-btns">
+        <button class="win-btn win-btn-min" aria-label="Minimize" data-target="hero-window">_</button>
+        <button class="win-btn win-btn-max" aria-label="Maximize" data-target="hero-window">&#9633;</button>
+        <button class="win-btn win-btn-close" aria-label="Close" data-target="hero-window">X</button>
+      </div>
+    </div>
+
+    <!-- Hero body -->
+    <div class="hero-body">
+
+      <!-- Left: photo frame + stats -->
+      <div class="hero-left">
+
+        <!-- ======================================================
+             [EDIT: HERO-PHOTO]
+             Your profile photo goes inside this frame.
+             Recommended size: at least 200x200px (.jpg or .png)
+
+             OPTION A -- Real photo:
+               Replace the .clipart-zone div entirely with:
+               <img src="photos/Aditya-Pandey.jpeg" alt="Aditya Pandey">
+
+             OPTION B -- Keep the clipart/image zone and drop
+               your downloaded image/clipart INSIDE it:
+               <div class="clipart-zone">
+                 <img src="clipart/YOUR-FILE.gif" alt="avatar">
+               </div>
+
+             While empty, the dashed box is the placeholder.
+        ====================================================== -->
+        <div class="hero-photo-frame" aria-label="Profile photo area">
+          <div class="clipart-zone" id="hero-clipart">
+            <!-- [CLIPART / PHOTO] Place your image tag here -->
+            <!-- Example: <img src="photos/Aditya-Pandey.jpeg" alt="Aditya Pandey"> -->
+            <!-- Example: <img src="clipart/avatar.gif"         alt=""> -->
+            <div class="cz-label">[ photo / clipart ]</div>
+          </div>
+        </div>
+
+        <!-- [EDIT: HERO-TEXT] Change the numbers (4+, 20, KTM) -->
+        <div class="hero-stats">
+          <div class="stat-box"><div class="stat-n">4+</div><div class="stat-l">Roles</div></div>
+          <div class="stat-box"><div class="stat-n">20</div><div class="stat-l">Months Exp.</div></div>
+          <div class="stat-box"><div class="stat-n">KTM</div><div class="stat-l">Nepal</div></div>
+        </div>
+      </div>
+
+      <!-- Right: text -->
+      <div class="hero-right">
+        <!-- [EDIT: HERO-TEXT] Change the eyebrow line -->
+        <div class="hero-eyebrow">** AI Data Specialist :: Research Analyst :: Finance &amp; Data Professional **</div>
+
+        <!-- [EDIT: NAME] -->
+        <h1 class="hero-name">Aditya<br>Pandey</h1>
+
+        <!-- [EDIT: HERO-TEXT] Change the tagline paragraph -->
+        <p class="hero-desc">Transforming complex datasets into actionable insights. Specialized in quantitative research, financial analysis, data annotation, and model evaluation. Based in Kathmandu, Nepal.</p>
+
+        <div class="hero-cta">
+          <a href="#contact"  class="xp-btn primary">Get In Touch</a>
+          <a href="#projects" class="xp-btn">View Work</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     MAIN DESKTOP AREA (all sections below hero)
+================================================================ -->
+<main class="desktop">
+
+
+  <!-- ==============================================================
+       ABOUT SECTION
+       [EDIT: ABOUT-TEXT]    Change the three paragraphs
+       [EDIT: CONTACT-INFO]  Change location, email, phone, LinkedIn
+       [EDIT: SKILLS]        Four .skill-cell blocks
+  ============================================================== -->
+  <section id="about">
+    <div class="sec-label">[ Background ]</div>
+    <h2 class="sec-title">About Me :-)</h2>
+
+    <!-- MS Paint color swatch strip -->
+    <div class="paint-strip" aria-hidden="true">
+      <div class="ps" style="background:#000"></div><div class="ps" style="background:#808080"></div>
+      <div class="ps" style="background:#800000"></div><div class="ps" style="background:#ff0000"></div>
+      <div class="ps" style="background:#808000"></div><div class="ps" style="background:#ffff00"></div>
+      <div class="ps" style="background:#008000"></div><div class="ps" style="background:#00ff00"></div>
+      <div class="ps" style="background:#008080"></div><div class="ps" style="background:#00ffff"></div>
+      <div class="ps" style="background:#000080"></div><div class="ps" style="background:#0000ff"></div>
+      <div class="ps" style="background:#800080"></div><div class="ps" style="background:#ff00ff"></div>
+      <div class="ps" style="background:#c0c0c0"></div><div class="ps" style="background:#fff"></div>
+      <div class="ps" style="background:#ff6600"></div><div class="ps" style="background:#ff1493"></div>
+      <div class="ps" style="background:#00cccc"></div><div class="ps" style="background:#9900cc"></div>
+    </div>
+
+    <div class="xp-window" id="about-window">
+      <div class="xp-titlebar">
+        <div class="xp-titlebar-left">
+          <span class="ico">
+            <!-- [EDIT: ICON-ABOUT-TITLE] -->
+          </span>
+          Properties -- Aditya_Pandey.exe
+        </div>
+        <div class="win-btns">
+          <button class="win-btn win-btn-min" aria-label="Minimize" data-target="about-window">_</button>
+          <button class="win-btn win-btn-max" aria-label="Maximize" data-target="about-window">&#9633;</button>
+          <button class="win-btn win-btn-close" aria-label="Close" data-target="about-window">X</button>
+        </div>
+      </div>
+
+      <div class="xp-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Help</span>
+      </div>
+
+      <div class="xp-body silver">
+        <div class="about-grid">
+
+          <!-- Left: text -->
+          <div class="about-text reveal">
+            <!-- [EDIT: ABOUT-TEXT] Change these three paragraphs -->
+            <p>I'm an <strong>AI Data Specialist and Research Analyst</strong> with a strong foundation in quantitative research, data analysis, model evaluation, and consumer behavior insights.</p>
+            <p>I hold a <strong>Bachelor of Business Administration (Finance)</strong> from Kathmandu University School of Management (CGPA: 3.39), and completed the <strong>Applied Data Science Lab</strong> at WorldQuant University (Oct 2025 to Mar 2026).</p>
+            <p>With hands-on experience spanning financial analysis, AI model training, data annotation, and survey programming, I specialize in transforming complex datasets into actionable insights that drive strategic decision-making.</p>
+
+            <!-- [EDIT: CONTACT-INFO] Change each row below -->
+            <div class="xp-group">
+              <span class="xp-group-title">Contact Info</span>
+              <div class="crow"><span class="lbl">Location</span><span>Kathmandu, Nepal</span></div>
+              <div class="crow"><span class="lbl">Email</span><a href="mailto:mail2adityapandey@gmail.com">mail2adityapandey@gmail.com</a></div>
+              <div class="crow"><span class="lbl">Phone</span><span>+977-9848568880 / +977-9810047320</span></div>
+              <div class="crow"><span class="lbl">LinkedIn</span><a href="https://www.linkedin.com/in/adityapandey2003" target="_blank">adityapandey2003</a></div>
+            </div>
+          </div>
+
+          <!-- Right: skills grid -->
+          <!-- [EDIT: SKILLS] Change h3 (title) and p (description) in each cell -->
+          <div class="skills-grid reveal">
+
+            <div class="skill-cell">
+              <h3>
+                <span class="ico">
+                  <!-- [EDIT: ICON-SKILL-DATA] 14x14 skill icon -->
+                </span>
+                Data Analysis
+              </h3>
+              <p>Python, R, SPSS, Excel (Power Query, Pivot Tables, XLOOKUP), PostgreSQL</p>
+            </div>
+
+            <div class="skill-cell">
+              <h3>
+                <span class="ico">
+                  <!-- [EDIT: ICON-SKILL-VIZ] -->
+                </span>
+                Visualization
+              </h3>
+              <p>Power BI, Interactive Dashboards, Data Reporting</p>
+            </div>
+
+            <div class="skill-cell">
+              <h3>
+                <span class="ico">
+                  <!-- [EDIT: ICON-SKILL-AI] -->
+                </span>
+                Research &amp; AI
+              </h3>
+              <p>Quantitative Research, Model Evaluation, Data Annotation, Survey Programming</p>
+            </div>
+
+            <div class="skill-cell">
+              <h3>
+                <span class="ico">
+                  <!-- [EDIT: ICON-SKILL-TOOLS] -->
+                </span>
+                Tools
+              </h3>
+              <p>Google Analytics, Google Forms, Qualtrics, Consumer Behavior Analysis</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="xp-statusbar">
+        <span>Ready</span>
+        <span>4 skills listed</span>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="star-div" aria-hidden="true">* * * * *</div>
+
+
+  <!-- ==============================================================
+       EXPERIENCE SECTION
+       [EDIT: JOB-1..4] Each .tl-card is one experience entry.
+       To ADD a job: copy an entire .tl-item block and paste it
+       before the closing </div><!-- /timeline --> comment.
+       To REMOVE: delete the .tl-item block.
+  ============================================================== -->
+  <section id="experience">
+    <div class="sec-label">[ Career ]</div>
+    <h2 class="sec-title">Professional Experience</h2>
+
+    <div class="xp-window" id="exp-window">
+      <div class="xp-titlebar">
+        <div class="xp-titlebar-left">
+          <span class="ico">
+            <!-- [EDIT: ICON-EXP-TITLE] -->
+          </span>
+          My Career Files -- Windows Explorer
+        </div>
+        <div class="win-btns">
+          <button class="win-btn win-btn-min" aria-label="Minimize" data-target="exp-window">_</button>
+          <button class="win-btn win-btn-max" aria-label="Maximize" data-target="exp-window">&#9633;</button>
+          <button class="win-btn win-btn-close" aria-label="Close" data-target="exp-window">X</button>
+        </div>
+      </div>
+
+      <div class="xp-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Favorites</span>
+        <span class="menu-item">Help</span>
+      </div>
+
+      <div class="xp-toolbar">
+        <button class="xp-tbtn" disabled aria-label="Back">
+          <span class="ico"><!-- [EDIT: ICON-BACK] --></span>
+          Back
+        </button>
+        <button class="xp-tbtn" disabled aria-label="Forward">
+          <span class="ico"><!-- [EDIT: ICON-FWD] --></span>
+          Forward
+        </button>
+        <div class="toolbar-sep" aria-hidden="true"></div>
+        <button class="xp-tbtn" disabled aria-label="Up">
+          <span class="ico"><!-- [EDIT: ICON-UP] --></span>
+          Up
+        </button>
+        <div class="toolbar-sep" aria-hidden="true"></div>
+        <button class="xp-tbtn" disabled aria-label="Search">
+          <span class="ico"><!-- [EDIT: ICON-SEARCH] --></span>
+          Search
+        </button>
+        <button class="xp-tbtn" disabled aria-label="Folders">
+          <span class="ico"><!-- [EDIT: ICON-FOLDERS] --></span>
+          Folders
+        </button>
+      </div>
+
+      <div class="xp-addrbar">
+        <span class="addr-label">Address</span>
+        <div class="addr-field">C:\Users\Aditya\Documents\Career\Experience</div>
+        <button class="xp-tbtn addr-go">Go</button>
+      </div>
+
+      <div class="explorer-layout">
+
+        <!-- Sidebar -->
+        <div class="exp-sidebar">
+          <div class="sidebar-sec">
+            <div class="sidebar-ttl">File Details</div>
+            <p class="sidebar-txt reveal">A growing track record across AI data work, quantitative research, and finance. From investment monitoring to multimodal model training.</p>
+            <div class="exp-counter reveal">
+              <!-- [EDIT: HERO-TEXT] Change 20+ if your months change -->
+              <div class="num">20+</div>
+              <div class="lbl">Months of Experience</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main file list -->
+        <div class="exp-main">
+
+          <!-- ====================================================
+               [EDIT: JOB-1]  Most recent role
+               Change: tl-role, tl-co, tl-period, tl-dur, badges, bullets
+          ==================================================== -->
+          <div class="tl-item" id="tl0">
+            <div class="tl-ico" aria-hidden="true">
+              <!-- [EDIT: ICON-JOB-1] Replace div with <img src="icons/folder-open.png" width="28" height="28"> -->
+              <div class="tl-ico-fb">dir</div>
+            </div>
+            <div style="flex:1">
+              <div class="tl-card" id="card0" tabindex="0" role="button" aria-expanded="false" onclick="tlToggle(0)" onkeydown="if(event.key==='Enter'||event.key===' ')tlToggle(0)">
+                <div class="tl-top">
+                  <div>
+                    <div class="tl-role">AI Data Specialist</div>
+                    <div class="tl-co">RWS Global (contracted to MANGO) :: Remote</div>
+                  </div>
+                  <div class="tl-meta">
+                    <span class="tl-period">Oct 2025 to Mar 2026</span>
+                    <span class="tl-dur">6 months</span>
+                  </div>
+                </div>
+                <div class="tl-badges">
+                  <span class="tl-badge">Model Evaluation</span>
+                  <span class="tl-badge">Data Annotation</span>
+                  <span class="tl-badge">Multimodal AI</span>
+                  <span class="tl-badge">Quality Auditing</span>
+                </div>
+                <button class="tl-toggle" id="hint0" aria-controls="bul0">+ Show details</button>
+                <div class="tl-bullets" id="bul0" aria-hidden="true">
+                  <ul>
+                    <li>Contributed to Project Diamond, Jet, and Echo across multimodal pipelines</li>
+                    <li>Trained and evaluated vision and text models using structured annotation workflows</li>
+                    <li>Executed large-scale labeling, validation, and edge-case handling to improve model reliability</li>
+                    <li>Worked within in-house tooling for annotation and content classification</li>
+                    <li>Audited annotated outputs to assess variance and quality of work</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====================================================
+               [EDIT: JOB-2]
+          ==================================================== -->
+          <div class="tl-item" id="tl1">
+            <div class="tl-ico" aria-hidden="true">
+              <!-- [EDIT: ICON-JOB-2] -->
+              <div class="tl-ico-fb">dir</div>
+            </div>
+            <div style="flex:1">
+              <div class="tl-card" id="card1" tabindex="0" role="button" aria-expanded="false" onclick="tlToggle(1)" onkeydown="if(event.key==='Enter'||event.key===' ')tlToggle(1)">
+                <div class="tl-top">
+                  <div>
+                    <div class="tl-role">Research Analyst</div>
+                    <div class="tl-co">Source Code</div>
+                  </div>
+                  <div class="tl-meta">
+                    <span class="tl-period">Mar 2025 to Oct 2025</span>
+                    <span class="tl-dur">8 months</span>
+                  </div>
+                </div>
+                <div class="tl-badges">
+                  <span class="tl-badge">Python</span>
+                  <span class="tl-badge">Excel</span>
+                  <span class="tl-badge">Quantitative Research</span>
+                  <span class="tl-badge">Financial Analysis</span>
+                </div>
+                <button class="tl-toggle" id="hint1" aria-controls="bul1">+ Show details</button>
+                <div class="tl-bullets" id="bul1" aria-hidden="true">
+                  <ul>
+                    <li>Delivered quantitative research to inform investment and market strategy</li>
+                    <li>Analyzed financial and behavioral datasets using Python and Excel</li>
+                    <li>Standardized and transformed raw datasets for statistical use</li>
+                    <li>Produced insight-driven reports used in decision workflows</li>
+                    <li>Worked on feature development through assessment of competitor products</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====================================================
+               [EDIT: JOB-3]
+          ==================================================== -->
+          <div class="tl-item" id="tl2">
+            <div class="tl-ico" aria-hidden="true">
+              <!-- [EDIT: ICON-JOB-3] -->
+              <div class="tl-ico-fb">dir</div>
+            </div>
+            <div style="flex:1">
+              <div class="tl-card" id="card2" tabindex="0" role="button" aria-expanded="false" onclick="tlToggle(2)" onkeydown="if(event.key==='Enter'||event.key===' ')tlToggle(2)">
+                <div class="tl-top">
+                  <div>
+                    <div class="tl-role">Loan Processing &amp; Investment Assistant</div>
+                    <div class="tl-co">Citizen Investment Trust</div>
+                  </div>
+                  <div class="tl-meta">
+                    <span class="tl-period">Oct 2024 to Mar 2025</span>
+                    <span class="tl-dur">6 months</span>
+                  </div>
+                </div>
+                <div class="tl-badges">
+                  <span class="tl-badge">Loan Processing</span>
+                  <span class="tl-badge">Data Integrity</span>
+                  <span class="tl-badge">Documentation</span>
+                </div>
+                <button class="tl-toggle" id="hint2" aria-controls="bul2">+ Show details</button>
+                <div class="tl-bullets" id="bul2" aria-hidden="true">
+                  <ul>
+                    <li>Processed loan applications and enforced documentation accuracy</li>
+                    <li>Maintained data integrity across internal records and client files</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ====================================================
+               [EDIT: JOB-4]
+          ==================================================== -->
+          <div class="tl-item" id="tl3">
+            <div class="tl-ico" aria-hidden="true">
+              <!-- [EDIT: ICON-JOB-4] -->
+              <div class="tl-ico-fb">dir</div>
+            </div>
+            <div style="flex:1">
+              <div class="tl-card" id="card3" tabindex="0" role="button" aria-expanded="false" onclick="tlToggle(3)" onkeydown="if(event.key==='Enter'||event.key===' ')tlToggle(3)">
+                <div class="tl-top">
+                  <div>
+                    <div class="tl-role">Investment &amp; IT Support Intern</div>
+                    <div class="tl-co">Citizen Investment Trust</div>
+                  </div>
+                  <div class="tl-meta">
+                    <span class="tl-period">Aug 2024 to Oct 2024</span>
+                    <span class="tl-dur">3 months</span>
+                  </div>
+                </div>
+                <div class="tl-badges">
+                  <span class="tl-badge">Dashboards</span>
+                  <span class="tl-badge">Reporting</span>
+                  <span class="tl-badge">Investment Products</span>
+                </div>
+                <button class="tl-toggle" id="hint3" aria-controls="bul3">+ Show details</button>
+                <div class="tl-bullets" id="bul3" aria-hidden="true">
+                  <ul>
+                    <li>Tracked investment product performance and built internal dashboards</li>
+                    <li>Assisted in reporting and presentations with senior investment staff</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TO ADD MORE JOBS: copy a .tl-item block from above and paste it here -->
+
+        </div><!-- /exp-main -->
+      </div><!-- /explorer-layout -->
+
+      <div class="xp-statusbar">
+        <span>4 objects</span>
+        <span>Ready</span>
+      </div>
+    </div><!-- /xp-window exp -->
+  </section>
+
+
+  <div class="star-div" aria-hidden="true">* * * * *</div>
+
+
+  <!-- ==============================================================
+       PROJECTS SECTION
+       [EDIT: PROJECT-1..4]  Edit each project card.
+       [EDIT: ADD-PROJECT]   See template below the last card.
+
+       ADDING IMAGES / CLIPARTS:
+       Inside each .clipart-zone div, drop your <img> tag.
+       Recommended image size: 320x150px for project cards.
+
+       OPTION A -- Photo/screenshot:
+         <img src="photos/my-project.jpg" alt="Project name">
+
+       OPTION B -- Clipart (.gif, .png, .bmp):
+         <img src="clipart/folder-icon.gif" alt="">
+
+       While empty the dashed box is the visible placeholder.
+  ============================================================== -->
+  <section id="projects">
+    <div class="sec-label">[ Work ]</div>
+    <h2 class="sec-title">Projects &amp; Leadership ^_^</h2>
+
+    <div class="project-grid">
+
+      <!-- ====================================================
+           [EDIT: PROJECT-1]
+      ==================================================== -->
+      <div class="project-card reveal">
+        <div class="card-title-bar">
+          <span class="card-title-text">
+            <span class="ico"><!-- [EDIT: ICON-PROJ-1] --></span>
+            rashifal_bot.exe
+          </span>
+          <div class="card-btns" aria-hidden="true">
+            <span class="card-btn card-btn-min">_</span>
+            <span class="card-btn card-btn-max">&#9633;</span>
+            <span class="card-btn card-btn-cls">X</span>
+          </div>
+        </div>
+        <div class="proj-img-area">
+          <!-- ============================================
+               [EDIT: PROJECT-1 IMAGE]
+               Drop your project screenshot or clipart here.
+               Photo: <img src="photos/rashifalbot.jpg" alt="Rashifal Bot">
+               Clipart: <img src="clipart/twitter.gif" alt="">
+               Recommended size: 320x150px
+          ============================================ -->
+          <img
+            src="photos/rashifalbot.jpg"
+            alt="Rashifal Bot"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          >
+          <div class="clipart-zone" style="display:none">
+            <!-- [CLIPART] Add your fallback image here -->
+            <div class="cz-label">[ project image ]</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <!-- [EDIT: PROJECT-1] Change tag, title, description, link -->
+          <div class="proj-tag">Automation :: Social Media</div>
+          <a href="https://x.com/rashifalbot" target="_blank" class="proj-ttl">Rashifal Bot</a>
+          <p class="proj-desc">An automated Twitter bot that posts daily horoscopes and astrological predictions in Nepali, engaging thousands of followers with personalized zodiac insights.</p>
+          <a href="https://x.com/rashifalbot" target="_blank" class="proj-link">View on X &rarr;</a>
+        </div>
+      </div>
+
+      <!-- ====================================================
+           [EDIT: PROJECT-2]
+      ==================================================== -->
+      <div class="project-card reveal">
+        <div class="card-title-bar">
+          <span class="card-title-text">
+            <span class="ico"><!-- [EDIT: ICON-PROJ-2] --></span>
+            team_explore_idea.exe
+          </span>
+          <div class="card-btns" aria-hidden="true">
+            <span class="card-btn card-btn-min">_</span>
+            <span class="card-btn card-btn-max">&#9633;</span>
+            <span class="card-btn card-btn-cls">X</span>
+          </div>
+        </div>
+        <div class="proj-img-area">
+          <!-- [EDIT: PROJECT-2 IMAGE] -->
+          <img
+            src="photos/EI.jpg"
+            alt="Team Explore Idea"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+          >
+          <div class="clipart-zone" style="display:none">
+            <!-- [CLIPART] Add your image here -->
+            <div class="cz-label">[ project image ]</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <!-- [EDIT: PROJECT-2] -->
+          <div class="proj-tag">Leadership :: Analytics</div>
+          <a href="https://www.teamexploreidea.com/our-team/" target="_blank" class="proj-ttl">Team Explore Idea :: Executive Member</a>
+          <p class="proj-desc">Organized remote national competitions and led analytics and reporting initiatives to measure program impact and engagement.</p>
+          <a href="https://www.teamexploreidea.com/our-team/" target="_blank" class="proj-link">View Team &rarr;</a>
+        </div>
+      </div>
+
+      <!-- ====================================================
+           [EDIT: PROJECT-3]
+      ==================================================== -->
+      <div class="project-card reveal">
+        <div class="card-title-bar">
+          <span class="card-title-text">
+            <span class="ico"><!-- [EDIT: ICON-PROJ-3] --></span>
+            project_sahayatri.exe
+          </span>
+          <div class="card-btns" aria-hidden="true">
+            <span class="card-btn card-btn-min">_</span>
+            <span class="card-btn card-btn-max">&#9633;</span>
+            <span class="card-btn card-btn-cls">X</span>
+          </div>
+        </div>
+        <div class="proj-img-area">
+          <!-- ============================================
+               [EDIT: PROJECT-3 IMAGE]
+               No photo yet. Replace the .clipart-zone div
+               below with <img src="photos/YOUR-FILE.jpg" ...>
+               OR drop your image/clipart inside .clipart-zone:
+                 <img src="clipart/school.gif" alt="">
+          ============================================ -->
+          <div class="clipart-zone">
+            <!-- [CLIPART] Drop your image here -->
+            <div class="cz-label">[ project image ]</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <!-- [EDIT: PROJECT-3] -->
+          <div class="proj-tag">Finance :: Field Research</div>
+          <div class="proj-ttl">Project Sahayatri :: Sponsorship Lead &amp; Trainer</div>
+          <p class="proj-desc">Delivered financial literacy programs and led digital payments surveys in rural schools. Designed and executed pre/post analysis to measure learning impact.</p>
+        </div>
+      </div>
+
+      <!-- ====================================================
+           [EDIT: PROJECT-4]
+      ==================================================== -->
+      <div class="project-card reveal">
+        <div class="card-title-bar">
+          <span class="card-title-text">
+            <span class="ico"><!-- [EDIT: ICON-PROJ-4] --></span>
+            leadership_roles.exe
+          </span>
+          <div class="card-btns" aria-hidden="true">
+            <span class="card-btn card-btn-min">_</span>
+            <span class="card-btn card-btn-max">&#9633;</span>
+            <span class="card-btn card-btn-cls">X</span>
+          </div>
+        </div>
+        <div class="proj-img-area">
+          <!-- [EDIT: PROJECT-4 IMAGE] -->
+          <div class="clipart-zone">
+            <!-- [CLIPART] Drop your image here -->
+            <div class="cz-label">[ project image ]</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <!-- [EDIT: PROJECT-4] -->
+          <div class="proj-tag">Community :: Service</div>
+          <div class="proj-ttl">Leadership &amp; Additional Roles</div>
+          <p class="proj-desc">Class Representative (2 years), Joint Secretary of Student Welfare Council, Content Writer for Finance Club, and Photographer at Falling Walls Lab Nepal.</p>
+        </div>
+      </div>
+
+    </div><!-- /project-grid -->
+
+
+    <!-- ============================================================
+         [EDIT: ADD-PROJECT]
+         TEMPLATE -- Copy from here to the matching closing comment
+         and paste it INSIDE .project-grid above to add a new card.
+         ============================================================
+    <div class="project-card reveal">
+      <div class="card-title-bar">
+        <span class="card-title-text">
+          <span class="ico"><!-- [EDIT: ICON-PROJ-NEW] - - ></span>
+          new_project.exe
+        </span>
+        <div class="card-btns" aria-hidden="true">
+          <span class="card-btn card-btn-min">_</span>
+          <span class="card-btn card-btn-max">&#9633;</span>
+          <span class="card-btn card-btn-cls">X</span>
+        </div>
+      </div>
+      <div class="proj-img-area">
+        <div class="clipart-zone">
+          < !-- [CLIPART] <img src="photos/YOUR-IMAGE.jpg" alt=""> - ->
+          <div class="cz-label">[ project image ]</div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="proj-tag">Category :: Subcategory</div>
+        <a href="YOUR-LINK" target="_blank" class="proj-ttl">Project Title</a>
+        <p class="proj-desc">Brief description of what this project does and what you achieved.</p>
+        <a href="YOUR-LINK" target="_blank" class="proj-link">View Project &rarr;</a>
+      </div>
+    </div>
+         END TEMPLATE
+    ============================================================ -->
+
+  </section>
+
+
+  <div class="star-div" aria-hidden="true">* * * * *</div>
+
+
+  <!-- ==============================================================
+       CV SECTION
+       [EDIT: CV-FILE]     Change the href on the Download button
+       [EDIT: CV-DETAILS]  Change the three .cv-feat entries
+  ============================================================== -->
+  <section id="cv">
+    <div class="sec-label">[ Download ]</div>
+    <h2 class="sec-title">Curriculum Vitae !!!</h2>
+
+    <div class="xp-window" id="cv-window">
+      <div class="xp-titlebar">
+        <div class="xp-titlebar-left">
+          <span class="ico">
+            <!-- [EDIT: ICON-CV-TITLE] -->
+          </span>
+          Save As -- Aditya_Pandey_CV.pdf
+        </div>
+        <div class="win-btns">
+          <button class="win-btn win-btn-min" aria-label="Minimize" data-target="cv-window">_</button>
+          <button class="win-btn win-btn-max" aria-label="Maximize" data-target="cv-window">&#9633;</button>
+          <button class="win-btn win-btn-close" aria-label="Close" data-target="cv-window">X</button>
+        </div>
+      </div>
+
+      <div class="cv-dialog reveal">
+        <!-- Left: intro text + buttons -->
+        <div class="cv-text">
+          <p>Download my complete CV for a full overview of my professional experience, education, certifications, and achievements in data analysis and finance.</p>
+          <div class="cv-btns">
+            <!-- [EDIT: CV-FILE] Change Aditya_Pandey_CV.pdf to your file path -->
+            <a href="Aditya_Pandey_CV.pdf" download class="xp-btn primary">
+              <span class="ico"><!-- [EDIT: ICON-CV-DOWNLOAD] --></span>
+              Download CV (PDF)
+            </a>
+            <!-- Opens in browser tab instead of downloading -->
+            <a href="Aditya_Pandey_CV.pdf" target="_blank" class="xp-btn">
+              <span class="ico"><!-- [EDIT: ICON-CV-OPEN] --></span>
+              Open in Browser
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: summary bullets -->
+        <!-- [EDIT: CV-DETAILS] Change h4 labels and p text -->
+        <div class="cv-feats">
+
+          <div class="cv-feat">
+            <div class="cv-feat-ico">
+              <!-- [EDIT: ICON-CV-EDU] 28x28 icon: <img src="icons/education.png" alt="" width="28" height="28"> -->
+              <div class="cv-feat-ico-fb">edu</div>
+            </div>
+            <div>
+              <h4>Education</h4>
+              <p>BBA Finance at KUSoM (CGPA 3.39) :: Applied Data Science Lab at WorldQuant University :: +2 Management at GCM (CGPA 3.55)</p>
+            </div>
+          </div>
+
+          <div class="cv-feat">
+            <div class="cv-feat-ico">
+              <!-- [EDIT: ICON-CV-STACK] -->
+              <div class="cv-feat-ico-fb">dev</div>
+            </div>
+            <div>
+              <h4>Technical Stack</h4>
+              <p>Python, R, SPSS, SQL (PostgreSQL), Power BI, Excel, Qualtrics, Google Analytics, Model Evaluation &amp; Annotation</p>
+            </div>
+          </div>
+
+          <div class="cv-feat">
+            <div class="cv-feat-ico">
+              <!-- [EDIT: ICON-CV-EXP] -->
+              <div class="cv-feat-ico-fb">exp</div>
+            </div>
+            <div>
+              <h4>Experience</h4>
+              <p>AI Data Specialist :: Research Analyst :: Investment &amp; Loan Assistant :: 20+ months across finance, data, and AI</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="xp-statusbar">
+        <span>File: Aditya_Pandey_CV.pdf</span>
+        <span>Ready to download</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================================================
+       CONTACT SECTION
+       [EDIT: SOCIAL-LINKS]  Three .social-link anchors
+       [EDIT: FORM-KEY]      Change the access_key hidden input
+  ============================================================== -->
+  <section id="contact">
+    <div class="sec-label">[ Connect ]</div>
+    <h2 class="sec-title">Get In Touch :)</h2>
+
+    <div class="xp-window" id="contact-window">
+      <div class="xp-titlebar">
+        <div class="xp-titlebar-left">
+          <span class="ico">
+            <!-- [EDIT: ICON-CONTACT-TITLE] -->
+          </span>
+          MSN Messenger -- Aditya Pandey (Online)
+        </div>
+        <div class="win-btns">
+          <button class="win-btn win-btn-min" aria-label="Minimize" data-target="contact-window">_</button>
+          <button class="win-btn win-btn-max" aria-label="Maximize" data-target="contact-window">&#9633;</button>
+          <button class="win-btn win-btn-close" aria-label="Close" data-target="contact-window">X</button>
+        </div>
+      </div>
+
+      <div class="msn-grid">
+
+        <!-- Left: about + social links -->
+        <div class="msn-left reveal">
+          <p>Whether you're looking to collaborate on a research project, discuss data strategy, or just connect -- my inbox is open!</p>
+
+          <!-- [EDIT: SOCIAL-LINKS] Change href and display text -->
+          <div class="social-links">
+
+            <a href="https://github.com/Lordoftheoasis" target="_blank" class="social-link">
+              <span class="social-link-ico">
+                <!-- [EDIT: ICON-GITHUB] 18x18: <img src="icons/github.png" alt="" width="18" height="18"> -->
+              </span>
+              <span class="sl-text">GitHub :: Lordoftheoasis</span>
+              <span class="sl-arr">View &rarr;</span>
+            </a>
+
+            <a href="https://www.linkedin.com/in/adityapandey2003" target="_blank" class="social-link">
+              <span class="social-link-ico">
+                <!-- [EDIT: ICON-LINKEDIN] -->
+              </span>
+              <span class="sl-text">LinkedIn :: adityapandey2003</span>
+              <span class="sl-arr">Connect &rarr;</span>
+            </a>
+
+            <a href="mailto:mail2adityapandey@gmail.com" class="social-link">
+              <span class="social-link-ico">
+                <!-- [EDIT: ICON-EMAIL] -->
+              </span>
+              <span class="sl-text">mail2adityapandey@gmail.com</span>
+              <span class="sl-arr">Email &rarr;</span>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Right: contact form -->
+        <div class="msn-right reveal">
+          <div class="success-msg" id="successMsg" role="status" aria-live="polite">
+            Message sent! Thank you!! :D
+          </div>
+
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <!-- [EDIT: FORM-KEY] Replace with your Web3Forms access key -->
+            <input type="hidden" name="access_key"  value="a1a7527a-73b9-4dd7-bab7-6c2de4068324">
+            <input type="hidden" name="subject"     value="New Contact Form Submission from Portfolio">
+            <input type="hidden" name="from_name"   value="Portfolio Contact Form">
+
+            <div class="form-group">
+              <label class="form-label" for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com" autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="What's on your mind? ^_^"></textarea>
+            </div>
+            <button type="submit" class="xp-btn primary full" id="submitBtn">Send Message</button>
+          </form>
+        </div>
+
+      </div><!-- /msn-grid -->
+
+      <div class="xp-statusbar">
+        <span>Status: Online</span>
+        <span>Web3Forms</span>
+      </div>
+    </div><!-- /xp-window contact -->
+  </section>
+
+
+</main><!-- /desktop -->
+
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer style="
+  background: linear-gradient(180deg, #d4d0c8, #c0bcb4);
+  border-top: 2px solid #fff;
+  padding: 8px 20px 6px;
+  font-family: Tahoma,sans-serif;
+  font-size: 11px; color: #444;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px;
+  margin-bottom: var(--bar-h);
+">
+  <!-- [EDIT: NAME] -->
+  <span>&copy; 2025 Aditya Pandey :: Kathmandu, Nepal :: All rights reserved.</span>
+  <span style="color:#777; font-size:10px;">Best viewed in Internet Explorer 6.0 at 1024x768. No viruses, probably.</span>
+  <!-- Visitor counter decoration -->
+  <span style="display:flex; align-items:center; gap:6px; font-size:11px;">
+    You are visitor #
+    <span style="display:flex; border:1px solid #444;">
+      <span style="background:#000;color:#0f0;font-family:'Courier New';font-size:14px;font-weight:bold;width:14px;text-align:center;">0</span>
+      <span style="background:#000;color:#0f0;font-family:'Courier New';font-size:14px;font-weight:bold;width:14px;text-align:center;border-left:1px solid #003300;">1</span>
+      <span style="background:#000;color:#0f0;font-family:'Courier New';font-size:14px;font-weight:bold;width:14px;text-align:center;border-left:1px solid #003300;">3</span>
+      <span style="background:#000;color:#0f0;font-family:'Courier New';font-size:14px;font-weight:bold;width:14px;text-align:center;border-left:1px solid #003300;">3</span>
+      <span style="background:#000;color:#0f0;font-family:'Courier New';font-size:14px;font-weight:bold;width:14px;text-align:center;border-left:1px solid #003300;">7</span>
+    </span>
+  </span>
+</footer>
+
+
+<!-- ================================================================
+     XP TASKBAR (fixed bottom bar)
+     [EDIT: ICON-TASKBAR-*] Add icons inside each .start-ico / .chip-ico
+================================================================ -->
+<div class="xp-taskbar" role="navigation" aria-label="Taskbar navigation">
+
+  <!-- Start button scrolls to top -->
+  <a href="#home" class="xp-start" aria-label="Go to top of page">
+    <span class="start-ico" aria-hidden="true">
+      <!-- [EDIT: ICON-START] e.g. <img src="icons/windows-logo.png" alt="" width="22" height="22"> -->
+      <!-- Default: XP four-color grid -->
+      <span class="start-xp" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+    </span>
+    start
+  </a>
+
+  <div class="taskbar-sep" aria-hidden="true"></div>
+
+  <!-- Taskbar chips: each one scrolls to a section -->
+  <div class="taskbar-chips">
+
+    <a href="#about" class="chip">
+      <span class="chip-ico"><!-- [EDIT: ICON-CHIP-ABOUT] --></span>
+      About
+    </a>
+    <a href="#experience" class="chip">
+      <span class="chip-ico"><!-- [EDIT: ICON-CHIP-EXP] --></span>
+      Experience
+    </a>
+    <a href="#projects" class="chip">
+      <span class="chip-ico"><!-- [EDIT: ICON-CHIP-PROJ] --></span>
+      Projects
+    </a>
+    <a href="#cv" class="chip">
+      <span class="chip-ico"><!-- [EDIT: ICON-CHIP-CV] --></span>
+      CV
+    </a>
+    <a href="#contact" class="chip">
+      <span class="chip-ico"><!-- [EDIT: ICON-CHIP-CONTACT] --></span>
+      Contact
+    </a>
+
+  </div>
+
+  <!-- System tray with live clock -->
+  <div class="sys-tray">
+    <span class="ico"><!-- [EDIT: ICON-TRAY] --></span>
+    <time id="taskbar-clock" aria-live="polite">00:00</time>
+  </div>
+
+</div><!-- /xp-taskbar -->
+
+
+<script>
+/* ================================================================
+   JAVASCRIPT -- organised into labeled sections
+================================================================ */
+
+/* ----------------------------------------------------------------
+   1. STAR FIELD (hero background canvas)
+---------------------------------------------------------------- */
+(function () {
+  const canvas = document.getElementById('star-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const stars = Array.from({ length: 220 }, () => ({
+    x: Math.random(), y: Math.random(),
+    r: Math.random() * 1.5 + 0.2,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.025 + 0.006,
+    hue: Math.random() > 0.85 ? Math.floor(Math.random() * 360) : null
+  }));
+
+  function resize () {
+    const parent = canvas.parentElement;
+    canvas.width  = parent ? parent.offsetWidth  : window.innerWidth;
+    canvas.height = parent ? parent.offsetHeight : window.innerHeight;
+  }
+
+  let frame = 0;
+  function draw () {
+    if (!canvas.width) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const g = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    g.addColorStop(0, '#04041a'); g.addColorStop(0.5, '#08082e'); g.addColorStop(1, '#04041a');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    frame++;
+    for (const s of stars) {
+      const a = 0.3 + 0.7 * Math.abs(Math.sin(frame * s.speed + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.hue !== null
+        ? `hsla(${s.hue},100%,80%,${a})`
+        : `rgba(255,255,255,${a})`;
+      ctx.fill();
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  (function loop () { draw(); requestAnimationFrame(loop); })();
+})();
+
+/* ----------------------------------------------------------------
+   2. WINDOW BUTTONS (min / max / close)
+   - Min: toggles visibility of window content
+   - Max: expands window to full max-width (toggle)
+   - Close: plays shake animation
+---------------------------------------------------------------- */
+(function () {
+  /* -- Minimize -- */
+  document.querySelectorAll('.win-btn-min').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const win = document.getElementById(this.dataset.target);
+      if (!win) return;
+      /* Hide everything inside the window except the titlebar */
+      Array.from(win.children).forEach(child => {
+        if (!child.classList.contains('xp-titlebar')) {
+          child.style.display = child.style.display === 'none' ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  /* -- Maximize -- */
+  document.querySelectorAll('.win-btn-max').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const win = document.getElementById(this.dataset.target);
+      if (!win) return;
+      if (win.style.position === 'fixed') {
+        /* Restore */
+        Object.assign(win.style, {
+          position: '', top: '', left: '', right: '', bottom: '',
+          width: '', zIndex: '', margin: '', borderRadius: ''
+        });
+      } else {
+        /* Maximize */
+        Object.assign(win.style, {
+          position: 'fixed', top: '52px', left: '0', right: '0', bottom: '40px',
+          width: '100%', zIndex: '800', margin: '0', borderRadius: '0',
+          overflowY: 'auto'
+        });
+      }
+    });
+  });
+
+  /* -- Close (shake) -- */
+  document.querySelectorAll('.win-btn-close').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const win = document.getElementById(this.dataset.target);
+      if (!win) return;
+      win.classList.add('win-shake');
+      setTimeout(() => win.classList.remove('win-shake'), 400);
+    });
+  });
+})();
+
+/* ----------------------------------------------------------------
+   3. TIMELINE TOGGLE
+---------------------------------------------------------------- */
+function tlToggle (i) {
+  const card = document.getElementById('card' + i);
+  const bul  = document.getElementById('bul'  + i);
+  const hint = document.getElementById('hint' + i);
+  const isOpen = bul.classList.contains('open');
+  bul.classList.toggle('open', !isOpen);
+  card.classList.toggle('open', !isOpen);
+  card.setAttribute('aria-expanded', !isOpen);
+  bul.setAttribute('aria-hidden', isOpen);
+  hint.textContent = isOpen ? '+ Show details' : '- Hide details';
+}
+
+/* ----------------------------------------------------------------
+   4. INTERSECTION OBSERVERS (scroll reveals)
+---------------------------------------------------------------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const tlio = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = parseInt(e.target.id.replace('tl', ''));
+      setTimeout(() => e.target.classList.add('visible'), idx * 150);
+      tlio.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.tl-item').forEach(el => tlio.observe(el));
+
+/* ----------------------------------------------------------------
+   5. SMOOTH SCROLL (all internal anchor links)
+---------------------------------------------------------------- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+/* ----------------------------------------------------------------
+   6. TASKBAR CLOCK
+---------------------------------------------------------------- */
+function updateClock () {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2, '0');
+  const m = now.getMinutes().toString().padStart(2, '0');
+  const el = document.getElementById('taskbar-clock');
+  if (el) el.textContent = h + ':' + m;
+}
+updateClock();
+setInterval(updateClock, 10000);
+
+/* ----------------------------------------------------------------
+   7. CONTACT FORM
+---------------------------------------------------------------- */
+(function () {
+  const form = document.getElementById('contactForm');
+  const btn  = document.getElementById('submitBtn');
+  const msg  = document.getElementById('successMsg');
+  if (!form) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST', body: new FormData(form)
+      });
+      const data = await res.json();
+      if (data.success) {
+        msg.style.display = 'block';
+        form.reset();
+        setTimeout(() => { msg.style.display = 'none'; }, 5000);
+      } else {
+        alert('Something went wrong. Please email me directly.');
+      }
+    } catch {
+      alert('Something went wrong. Please email me directly.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
